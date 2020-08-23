@@ -16,11 +16,11 @@ const firebaseConfig = {
 };
 
 
-
 const firebase = require('firebase');
 firebase.initializeApp(firebaseConfig);
 
 const db = admin.firestore();
+
 
 app.get('/screams', (req, res) => {
     db
@@ -43,16 +43,48 @@ app.get('/screams', (req, res) => {
     .catch((err) => console.error(err));
 });
 
-app.post('/scream', (req, res) => {
+const FBAuth = (req, res, next) => {
+    let idToken;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')){
+        idToken = req.headers.authorization.split('Bearer ')[1];
+    } else {
+        console.error('No token found')
+        return res.status(403).json({ error: 'Unauthorized'});
+    }
+
+    admin.auth().verifyIdToken(idToken)
+        .then(decodedToken => {
+            req.user = decodedToken;
+            console.log(decodedToken);
+            return db.collection('users')
+                .where('userId', '==', req.user.uid)
+                .limit(1)
+                .get();
+        })
+        .then(data =>{
+            req.user.handle = data.docs[0].data().handle;
+            return next();
+        })
+        .catch(err => {
+            console.error('Error while verifying token', err);
+            return res.status(403).json(err);
+        })
+}
+
+
+//Post one scream
+app.post('/scream', FBAuth, (req, res) => {
+    if (req.body.body.trim() === '') {
+        return res.status(400),json({ body: 'Body must not be empty '});
+    }
 
     const newScream = {
         body: req.body.body,
-        userHandle: req.body.userHandle,
+        userHandle: req.user.handle,
         createdAt: new Date().toISOString()
     };
 
-    db
-        .firestore()
+    db.firestore()
         .collection('screams')
         .add(newScream)
         .then((doc) => {
@@ -76,7 +108,6 @@ const isEmpty = (string) => {
 }
 
 
-// Signup Route
 app.post('/signup', (req, res) => {
     const newUser = {
         email: req.body.email,
@@ -100,7 +131,7 @@ app.post('/signup', (req, res) => {
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
 
-//TODO Validate Data
+
     let token, userId;
     db.doc(`/users/${newUser.handle}`)
         .get()
@@ -154,22 +185,20 @@ app.post('/login', (req, res) => {
     if(Object.keys(errors).length > 0) return res.status(400).json(errors);
 
     firebase
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-        .then((data) => {
-            return data.user.getIdToken();
-        })
-        .then((token) => {
-            return res.json({token});
-        })
-        .catch((err) => {
-            console.error(err);
-            if (err.code === 'auth/wrong-password'){
-                return res
-                    .status(403)
-                    .json({ general: 'Wrong credentials, please enter them again.'});
-            } else return res.status(500).json({error: err.code});
-        });
+        .auth()
+        .signInWithEmailAndPassword(user.email, user.password)
+            .then((data) => {
+                return data.user.getIdToken();
+            })
+            .then((token) => {
+                return res.json({ token });
+            })
+            .catch((err) => {
+                console.error(err);
+                if (err.code === 'auth/wrong-password'){
+                    return res.status(403).json({ general: 'Wrong credentials, please enter them again.'});
+                } else return res.status(500).json({error: err.code});
+            });
 });
 
 exports.api = functions.https.onRequest(app);

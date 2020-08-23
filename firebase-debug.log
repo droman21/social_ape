@@ -1,0 +1,36 @@
+[debug] [2020-08-23T21:55:03.351Z] ----------------------------------------------------------------------
+[debug] [2020-08-23T21:55:03.353Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2020-08-23T21:55:03.353Z] CLI Version:   8.9.0
+[debug] [2020-08-23T21:55:03.353Z] Platform:      win32
+[debug] [2020-08-23T21:55:03.353Z] Node Version:  v14.2.0
+[debug] [2020-08-23T21:55:03.354Z] Time:          Sun Aug 23 2020 17:55:03 GMT-0400 (Eastern Daylight Time)
+[debug] [2020-08-23T21:55:03.354Z] ----------------------------------------------------------------------
+[debug] [2020-08-23T21:55:03.354Z] 
+[debug] [2020-08-23T21:55:03.361Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-08-23T21:55:03.361Z] > authorizing via signed-in user
+[debug] [2020-08-23T21:55:03.362Z] [iam] checking project socialape-a01e4 for permissions ["firebase.projects.get"]
+[debug] [2020-08-23T21:55:03.364Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/socialape-a01e4:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-08-23T21:55:03.602Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 23 Aug 2020 21:55:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=95","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-08-23T21:55:03.604Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/socialape-a01e4  
+ 
+[debug] [2020-08-23T21:55:03.839Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 23 Aug 2020 21:55:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-08-23T21:55:03.994Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:121:11)
+    at Object.join (path.js:375:7)
+    at Object.<anonymous> (C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:22:39)
+    at Generator.next (<anonymous>)
+    at C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:4:12)
+    at Object.start (C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\functions.js:20:16)
+    at C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:24:40
+    at arrayMap (C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\lodash\lodash.js:639:23)
+    at Function.map (C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\lodash\lodash.js:9580:14)
+    at C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:23:29
+    at Generator.next (<anonymous>)
+    at C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:8:71
+    at new Promise (<anonymous>)
+    at __awaiter (C:\Users\Daniel\AppData\Roaming\npm\node_modules\firebase-tools\lib\serve\index.js:4:12)
+[error] 
+[error] Error: An unexpected error has occurred.
