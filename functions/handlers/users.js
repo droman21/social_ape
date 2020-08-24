@@ -13,7 +13,7 @@ const {
   reduceUserDetails,
 } = require('../util/validators');
 
-// Sign users up
+// Sign Users Up
 exports.signup = (req, res) => {
   const newUser = {
     email: req.body.email,
@@ -69,7 +69,7 @@ exports.signup = (req, res) => {
       }
     });
 };
-// Log user in
+// Log User In
 exports.login = (req, res) => {
   const user = {
     email: req.body.email,
@@ -99,14 +99,14 @@ exports.login = (req, res) => {
     });
 };
 
-// Add user details
+// Add User Details
 exports.addUserDetails = (req, res) => {
   let userDetails = reduceUserDetails(req.body);
 
   db.doc(`/users/${req.user.handle}`)
     .update(userDetails)
     .then(() => {
-      return res.json({ message: 'Details added successfully' });
+      return res.json({ message: 'Details Added Successfully' });
     })
     .catch((err) => {
       console.error(err);
@@ -150,7 +150,7 @@ exports.getUserDetails = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
-// Get own user details
+// Get Own User Details
 exports.getAuthenticatedUser = (req, res) => {
   let userData = {};
   db.doc(`/users/${req.user.handle}`)
@@ -196,7 +196,7 @@ exports.getAuthenticatedUser = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
-// Upload a profile image for user
+// Upload Profile Image for User
 exports.uploadImage = (req, res) => {
   const BusBoy = require('busboy');
   const path = require('path');
