@@ -1,4 +1,4 @@
-module.exports = {
+const firebaseConfig = {
     apiKey: "AIzaSyD0XBN9fslCSB6CxJ1zjCFwggm5c0P9pMI",
     authDomain: "socialape-a01e4.firebaseapp.com",
     databaseURL: "https://socialape-a01e4.firebaseio.com",
