@@ -1,14 +1,16 @@
+
 const functions = require('firebase-functions');
-
 const app = require('express')();
-
-const FBAuth = require('./util/fbAuth').default.default
+const FBAuth = require('./util/fbAuth');
 
 const { getAllScreams } = require('./handlers/screams');
 const { signup, login } = require('./handlers/users');
 
-const firebase = require('firebase');
-firebase.initializeApp(firebaseConfig);
+const cors = require('cors');
+app.use(cors());
+
+// const { db } = require('./util/admin');
+
 
 //Scream Routes:
 app.get('/screams', getAllScreams);
