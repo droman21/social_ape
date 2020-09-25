@@ -3,7 +3,7 @@ const app = require('express')();
 const FBAuth = require('./util/fbAuth');
 
 const { getAllScreams, postOneScream } = require('./handlers/screams');
-const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser, getAuthenticatedUser} = require('./handlers/users');
+const { signup, login, uploadImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users');
 
 const cors = require('cors');
 app.use(cors());
